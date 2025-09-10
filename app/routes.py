@@ -16,6 +16,11 @@ from app.schemas import (
 api_bp = Blueprint("api", __name__)
 
 
+@api_bp.route("/", methods=["GET"])
+def hello_world():
+    return {"message": "Hello World"}
+
+
 @api_bp.route("/instruments", methods=["GET"])
 def get_instruments():
     instruments = Bond.query.union(Loan.query, Stock.query, NegotiableObligation.query).all()
