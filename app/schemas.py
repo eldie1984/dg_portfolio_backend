@@ -10,7 +10,7 @@ class FinancialInstrumentSchema(Schema):
     instrument_type = fields.Str(required=True, validate=validate.OneOf(["bond", "loan", "stock", "obligation"]))
     issue_date = fields.DateTime(dump_only=True)
     face_value = fields.Float(required=True, validate=validate.Range(min=0))
-    currency = fields.Str(validate=validate.Length(equal=3), default="USD")
+    currency = fields.Str(validate=validate.Length(equal=3), load_default="USD")
 
     # Price tracking fields
     current_price = fields.Float(allow_none=True, validate=validate.Range(min=0))
@@ -116,7 +116,7 @@ class TransactionSchema(Schema):
     price_per_unit = fields.Float(required=True, validate=validate.Range(min=0))
     total_amount = fields.Float(dump_only=True)
     transaction_date = fields.DateTime(dump_only=True)
-    fees = fields.Float(validate=validate.Range(min=0), default=0.0)
+    fees = fields.Float(validate=validate.Range(min=0), load_default=0.0)
     notes = fields.Str(allow_none=True)
     instrument = fields.Nested(FinancialInstrumentSchema, dump_only=True)
 

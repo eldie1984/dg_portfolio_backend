@@ -18,4 +18,8 @@ def create_app():
 
     app.register_blueprint(api_bp, url_prefix="/api")
 
+    @app.route("/", methods=["GET"])
+    def hello_world():
+        return {"message": "Hello World"}
+
     return app
